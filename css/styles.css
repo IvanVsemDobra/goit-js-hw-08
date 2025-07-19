@@ -1,0 +1,14 @@
+.gallery {
+display: flex;
+flex-wrap: wrap;
+gap: 16px;
+}
+.gallery-item {
+
+}
+.gallery-image {
+
+}
+.gallery-link {
+
+}
