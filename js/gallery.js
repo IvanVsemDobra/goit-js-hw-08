@@ -1,4 +1,4 @@
-const images = 
+ 
 const images = [
   {
     preview:
@@ -68,31 +68,26 @@ const images = [
     const refs = {
         gallery: document.querySelector('.gallery'),
     };
-    
-    function imageTemplate(image) {
+    {preview, original, description} = images
+function imageTemplate(image) {
         return `
         <li class="gallery-item">
-            <a class="gallery-link" href="${image.original}">
+            <a class="gallery-link" href="${original}">
                 <img
-                    src="${image.preview}"
-                    data-source="${image.original}"
-                    alt="${image.description}" />
+                    src="${preview}"
+                    data-source="${original}"
+                    alt="${description}" />
             </a>
-        </li>`;
+        </li>`.join('');
     }
-    
-    function imagesTemplate(images) {
-        return images.map(imageTemplate).join('');
-    }
-    
     const markup = imagesTemplate(images);
-    refs.gallery.innerHTML = markup;
+refs.gallery.innerHTML = markup;
     
     
 refs.gallery.addEventListener('click', e => { 
     e.preventDefault()
-    if (e.target.nodeName === e.currentTarget) return;
-})
-const largeImageUrl = e.target.dataset.source;
+    if (e.target.nodeName !== IMG) return;
+    const largeImageUrl = e.target.dataset.source;
 const description = e.target.alt;
-console.log(imagesTemplate)
+
+})
