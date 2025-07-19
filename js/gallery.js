@@ -65,8 +65,7 @@ const images = [
     ];
     
     const refs = {
-        container: document.querySelector('.images'),
-        ulElem: document.querySelector('.js-gallery'),
+        gallery: document.querySelector('.js-gallery'),
     };
     
     function imageTemplate(image) {
@@ -86,10 +85,12 @@ const images = [
     }
     
     const markup = imagesTemplate(images);
-    refs.ulElem.innerHTML = markup;
+    refs.gallery.innerHTML = markup;
     
-refs.ulElem.addEventListener('click', e => { 
-    if (e.target === e.currentTarget) return;
+refs.gallery.addEventListener('click', e => { 
+    e.preventDefault()
+    if (e.target.nodeName === e.currentTarget) return;
 })
 const largeImageUrl = e.target.dataset.source;
 const description = e.target.alt;
+console.log(imagesTemplate)
