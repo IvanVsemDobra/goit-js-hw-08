@@ -118,4 +118,4 @@ gallery.addEventListener('keydown', e => {
     const alt = e.target.alt;
     openModal(originalUrl, alt);
   }
-});
+});  
