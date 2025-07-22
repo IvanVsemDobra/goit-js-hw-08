@@ -1,121 +1,117 @@
 const images = [
   {
-    preview: 'https://cdn.pixabay.com/photo/2019/05/14/16/43/rchids-4202820__480.jpg',
-    original: 'https://cdn.pixabay.com/photo/2019/05/14/16/43/rchids-4202820_1280.jpg',
+    preview:
+      'https://cdn.pixabay.com/photo/2019/05/14/16/43/rchids-4202820__480.jpg',
+    original:
+      'https://cdn.pixabay.com/photo/2019/05/14/16/43/rchids-4202820_1280.jpg',
     description: 'Hokkaido Flower',
   },
   {
-    preview: 'https://cdn.pixabay.com/photo/2019/05/14/22/05/container-4203677__340.jpg',
-    original: 'https://cdn.pixabay.com/photo/2019/05/14/22/05/container-4203677_1280.jpg',
+    preview:
+      'https://cdn.pixabay.com/photo/2019/05/14/22/05/container-4203677__340.jpg',
+    original:
+      'https://cdn.pixabay.com/photo/2019/05/14/22/05/container-4203677_1280.jpg',
     description: 'Container Haulage Freight',
   },
   {
-    preview: 'https://cdn.pixabay.com/photo/2019/05/16/09/47/beach-4206785__340.jpg',
-    original: 'https://cdn.pixabay.com/photo/2019/05/16/09/47/beach-4206785_1280.jpg',
+    preview:
+      'https://cdn.pixabay.com/photo/2019/05/16/09/47/beach-4206785__340.jpg',
+    original:
+      'https://cdn.pixabay.com/photo/2019/05/16/09/47/beach-4206785_1280.jpg',
     description: 'Aerial Beach View',
   },
   {
-    preview: 'https://cdn.pixabay.com/photo/2016/11/18/16/19/flowers-1835619__340.jpg',
-    original: 'https://cdn.pixabay.com/photo/2016/11/18/16/19/flowers-1835619_1280.jpg',
+    preview:
+      'https://cdn.pixabay.com/photo/2016/11/18/16/19/flowers-1835619__340.jpg',
+    original:
+      'https://cdn.pixabay.com/photo/2016/11/18/16/19/flowers-1835619_1280.jpg',
     description: 'Flower Blooms',
   },
   {
-    preview: 'https://cdn.pixabay.com/photo/2018/09/13/10/36/mountains-3674334__340.jpg',
-    original: 'https://cdn.pixabay.com/photo/2018/09/13/10/36/mountains-3674334_1280.jpg',
+    preview:
+      'https://cdn.pixabay.com/photo/2018/09/13/10/36/mountains-3674334__340.jpg',
+    original:
+      'https://cdn.pixabay.com/photo/2018/09/13/10/36/mountains-3674334_1280.jpg',
     description: 'Alpine Mountains',
   },
   {
-    preview: 'https://cdn.pixabay.com/photo/2019/05/16/23/04/landscape-4208571__340.jpg',
-    original: 'https://cdn.pixabay.com/photo/2019/05/16/23/04/landscape-4208571_1280.jpg',
+    preview:
+      'https://cdn.pixabay.com/photo/2019/05/16/23/04/landscape-4208571__340.jpg',
+    original:
+      'https://cdn.pixabay.com/photo/2019/05/16/23/04/landscape-4208571_1280.jpg',
     description: 'Mountain Lake Sailing',
   },
   {
-    preview: 'https://cdn.pixabay.com/photo/2019/05/17/09/27/the-alps-4209272__340.jpg',
-    original: 'https://cdn.pixabay.com/photo/2019/05/17/09/27/the-alps-4209272_1280.jpg',
+    preview:
+      'https://cdn.pixabay.com/photo/2019/05/17/09/27/the-alps-4209272__340.jpg',
+    original:
+      'https://cdn.pixabay.com/photo/2019/05/17/09/27/the-alps-4209272_1280.jpg',
     description: 'Alpine Spring Meadows',
   },
   {
-    preview: 'https://cdn.pixabay.com/photo/2019/05/16/21/10/landscape-4208255__340.jpg',
-    original: 'https://cdn.pixabay.com/photo/2019/05/16/21/10/landscape-4208255_1280.jpg',
+    preview:
+      'https://cdn.pixabay.com/photo/2019/05/16/21/10/landscape-4208255__340.jpg',
+    original:
+      'https://cdn.pixabay.com/photo/2019/05/16/21/10/landscape-4208255_1280.jpg',
     description: 'Nature Landscape',
   },
   {
-    preview: 'https://cdn.pixabay.com/photo/2019/05/17/04/35/lighthouse-4208843__340.jpg',
-    original: 'https://cdn.pixabay.com/photo/2019/05/17/04/35/lighthouse-4208843_1280.jpg',
+    preview:
+      'https://cdn.pixabay.com/photo/2019/05/17/04/35/lighthouse-4208843__340.jpg',
+    original:
+      'https://cdn.pixabay.com/photo/2019/05/17/04/35/lighthouse-4208843_1280.jpg',
     description: 'Lighthouse Coast Sea',
   },
 ];
+
 const gallery = document.querySelector('.gallery');
 
-function imageTemplate({ preview, original, description }) {
-  return `
+if (!gallery) {
+  console.error('Елемент .gallery не знайдено');
+} else {
+
+  const markup = images
+    .map(
+      ({ preview, original, description }) => `
     <li class="gallery-item">
-      <img
-        src="${preview}"
-        data-source="${original}"
-        alt="${description}"
-        class="gallery-image"
-        tabindex="0"
-        role="button"
-        aria-label="Відкрити зображення ${description}"
-      />
-    </li>
-  `;
+      <a class="gallery-link" href="${original}">
+        <img
+          src="${preview}"
+          data-source="${original}"
+          alt="${description}"
+          class="gallery-image"
+        />
+      </a>
+    </li>`
+    )
+    .join('');
+
+  gallery.innerHTML = markup;
+
+  gallery.addEventListener('click', onGalleryClick);
 }
 
-gallery.innerHTML = images.map(imageTemplate).join('');
+function onGalleryClick(e) {
+  e.preventDefault();
 
-function openModal(url, alt) {
+  const target = e.target;
+
+  if (target.nodeName !== 'IMG') return;
+
+  const largeImageUrl = target.dataset.source;
+  const description = target.alt;
+
   const instance = basicLightbox.create(
-    `<div tabindex="0" class="modal-bg" style="
-      background-image: url('${url}');
-      background-position: center;
-      background-size: contain;
-      background-repeat: no-repeat;
-      width: 100vw;
-      height: 100vh;
-      outline: none;
-    " aria-label="${alt}" role="dialog" aria-modal="true"></div>`,
-    {
-      onShow: (instance) => {
-        const modalElem = instance.element();
-
-        modalElem.focus();
-
-        function onKeyDown(e) {
-          if (e.key === 'Escape') {
-            instance.close();
-            window.removeEventListener('keydown', onKeyDown);
-          }
-        }
-        window.addEventListener('keydown', onKeyDown);
-
-        modalElem.addEventListener('click', (event) => {
-          if (event.target === modalElem) {
-            instance.close();
-            window.removeEventListener('keydown', onKeyDown);
-          }
-        });
-      },
-    }
+    `<img src="${largeImageUrl}" alt="${description}" />`
   );
+
   instance.show();
+
+  //  Escape
+  document.addEventListener('keydown', function onEsc(event) {
+    if (event.key === 'Escape') {
+      instance.close();
+      document.removeEventListener('keydown', onEsc);
+    }
+  });
 }
-
-gallery.addEventListener('click', e => {
-  if (e.target.classList.contains('gallery-image')) {
-    const originalUrl = e.target.dataset.source;
-    const alt = e.target.alt;
-    openModal(originalUrl, alt);
-  }
-});
-
-
-gallery.addEventListener('keydown', e => {
-  if (e.target.classList.contains('gallery-image') && (e.key === 'Enter' || e.key === ' ')) {
-    e.preventDefault();
-    const originalUrl = e.target.dataset.source;
-    const alt = e.target.alt;
-    openModal(originalUrl, alt);
-  }
-});  
